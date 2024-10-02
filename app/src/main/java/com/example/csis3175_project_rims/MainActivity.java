@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
                 SharedPreferences.Editor myEdit =sharedPreferences.edit();
+                ;
             }
         });
 

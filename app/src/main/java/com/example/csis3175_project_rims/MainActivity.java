@@ -1,5 +1,6 @@
 package com.example.csis3175_project_rims;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    EditText txtInputName, txtInputAge;
-    Button btnSave, btnRetrieve;
+    EditText txtInputID, txtInputPassword;
+    Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,31 +28,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        txtInputName = findViewById(R.id.txtInputName);
-        txtInputAge = findViewById(R.id.txtInputAge);
-        btnSave = findViewById(R.id.btnSave);
-        btnRetrieve = findViewById(R.id.btnRetrieve);
+        txtInputID = findViewById(R.id.txtInputID);
+        txtInputPassword = findViewById(R.id.txtInputPassword);
+        btnLogin = findViewById(R.id.btnLogin);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-                SharedPreferences.Editor myEdit =sharedPreferences.edit();
+                SharedPreferences sh = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+                SharedPreferences.Editor myEdit =sh.edit();
 
-                myEdit.putString("name", txtInputName.getText().toString());
-                myEdit.putInt("age", Integer.parseInt(txtInputAge.getText().toString()));
+                myEdit.putString("name", txtInputID.getText().toString());
+                myEdit.putString("password", txtInputPassword.getText().toString());
                 myEdit.apply();
             }
         });
 
-        btnRetrieve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-                SharedPreferences.Editor myEdit =sharedPreferences.edit();
-                ;
-            }
-        });
+
 
     }
 }

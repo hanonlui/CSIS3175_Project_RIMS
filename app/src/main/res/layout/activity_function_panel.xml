@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/system_accent3_500"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".functionPanel">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,48 +28,36 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
+            android:contentDescription="Logo"
             app:srcCompat="@drawable/rims" />
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:text="Retail Inventory Management System"
-            android:textColor="@color/material_dynamic_tertiary30"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/txtInputID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@android:drawable/editbox_background_normal"
-            android:ems="10"
-            android:hint="Type your ID"
-            android:inputType="text"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/txtInputPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@android:drawable/editbox_background_normal"
-            android:ems="10"
-            android:hint="Type your Password"
-            android:inputType="textPassword"
-            android:textSize="24sp" />
-
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnDashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:backgroundTint="@color/white"
-            android:text="LOGIN"
+            android:text="Dashboard"
+            android:textColor="@color/design_default_color_secondary_variant"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnStocktaking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:backgroundTint="@color/white"
+            android:text="Stocktaking"
+            android:textColor="@color/design_default_color_secondary_variant"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnSKUManage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:backgroundTint="@color/white"
+            android:text="SKU Manage"
             android:textColor="@color/design_default_color_secondary_variant"
             android:textSize="24sp" />
     </LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.csis3175_project_rims;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,19 +15,18 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class functionPanel extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity {
 
     FirebaseAuth auth;
-    TextView txtUserInfo;
-    Button btnLogout, btnDashboard, btnStocktaking, btnSKUManage;
+    TextView txtTotalView, txtLowView, txtUpdateView;
+    Button btnLogout2, btnStocktaking2, btnSKUManage2;
     FirebaseUser user;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_function_panel);
+        setContentView(R.layout.activity_dashboard);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -36,22 +34,14 @@ public class functionPanel extends AppCompatActivity {
         });
 
         auth = FirebaseAuth.getInstance();
-        txtUserInfo = findViewById(R.id.txtUserInfo);
-        btnLogout = findViewById(R.id.btnLogout);
-        btnDashboard = findViewById(R.id.btnDashboard);
-        btnStocktaking = findViewById(R.id.btnStocktaking);
-        btnSKUManage = findViewById(R.id.btnSKUManage);
+        //txtUserInfo = findViewById(R.id.txtUserInfo);
+        btnLogout2 = findViewById(R.id.btnLogout2);
+        btnStocktaking2 = findViewById(R.id.btnStocktaking2);
+        btnSKUManage2 = findViewById(R.id.btnSKUManage2);
         user = auth.getCurrentUser();
 
-        if(user == null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            txtUserInfo.setText("User ID: "+user.getEmail());
-        }
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnLogout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
@@ -60,15 +50,5 @@ public class functionPanel extends AppCompatActivity {
                 finish();
             }
         });
-
-        btnDashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
     }
 }

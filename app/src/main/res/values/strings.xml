@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CSIS3175_Project_RIMS</string>
+    <string name="input_your_email">Input your Email</string>
+    <string name="input_your_password">Input your Password</string>
+    <string name="create">CREATE</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="logo">Logo</string>
+    <string name="retail_inventory_management_system">Retail Inventory Management System</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="click_to_login">Click to login</string>
+    <string name="register_now">Register Now</string>
+    <string name="logout">Logout</string>
 </resources>

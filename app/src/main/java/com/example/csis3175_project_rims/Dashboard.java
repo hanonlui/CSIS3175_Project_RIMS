@@ -50,5 +50,23 @@ public class Dashboard extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnStocktaking2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Stocktaking.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnSKUManage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SKU_Manage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

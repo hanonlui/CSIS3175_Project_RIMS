@@ -70,5 +70,22 @@ public class functionPanel extends AppCompatActivity {
             }
         });
 
+        btnStocktaking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Stocktaking.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnSKUManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SKU_Manage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

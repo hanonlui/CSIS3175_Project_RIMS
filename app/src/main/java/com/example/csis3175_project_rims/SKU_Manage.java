@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class SKU_Manage extends AppCompatActivity {
         btnLogout2 = findViewById(R.id.btnLogout2);
         btnDashboard4 = findViewById(R.id.btnDashboard4);
         btnStocktaking4 = findViewById(R.id.btnStocktaking4);
+        btnAddSku = findViewById(R.id.btnAddSku);
+        btnSearch = findViewById(R.id.btnSearch);
         user = auth.getCurrentUser();
 
 
@@ -66,6 +69,20 @@ public class SKU_Manage extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Stocktaking.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        btnAddSku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Add SKU feature under Development", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Search under feature development",Toast.LENGTH_SHORT).show();
             }
         });
     }

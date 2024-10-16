@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class Stocktaking extends AppCompatActivity {
         btnLogout2 = findViewById(R.id.btnLogout2);
         btnDashboard3 = findViewById(R.id.btnDashboard3);
         btnSKUManage3 = findViewById(R.id.btnSKUManage3);
+        btnFinalizeStocktake = findViewById(R.id.btnFinalizeStocktake);
         user = auth.getCurrentUser();
 
 
@@ -66,6 +68,13 @@ public class Stocktaking extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SKU_Manage.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        btnFinalizeStocktake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Stocktaking under development",Toast.LENGTH_LONG).show();
             }
         });
     }

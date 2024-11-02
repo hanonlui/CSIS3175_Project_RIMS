@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,49 +45,17 @@ public class functionPanel extends AppCompatActivity {
         btnSKUManage = findViewById(R.id.btnSKUManage);
         user = auth.getCurrentUser();
 
-        if(user == null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            txtUserInfo.setText("User ID: "+user.getEmail());
-        }
+        // Set button click listeners
+        btnDashboard.setOnClickListener(v -> replaceFragment(new DashboardFragment()));
+        btnSKUManage.setOnClickListener(v -> replaceFragment(new SkuManageFragment()));
+        btnStocktaking.setOnClickListener(v -> replaceFragment(new StocktakingFragment()));
+    }
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        btnDashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        btnStocktaking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Stocktaking.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        btnSKUManage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SKU_Manage.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+    // Replace fragment in the container
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);  // Optional: enables back navigation
+        transaction.commit();
     }
 }

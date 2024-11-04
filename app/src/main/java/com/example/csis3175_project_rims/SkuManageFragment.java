@@ -1,12 +1,29 @@
 package com.example.csis3175_project_rims;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.csis3175_project_rims.Helpers.ProductsHelperClass;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +75,75 @@ public class SkuManageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_sku_manage,container,false);
+
+        Button btnAddSku = (Button)view.findViewById(R.id.btnAddSku);
+        TextView inputSkuCode = (TextView)view.findViewById(R.id.inputSkuCode);
+        TextView inputProductName = (TextView)view.findViewById(R.id.inputProductName);
+
+        btnAddSku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"This is btnAddSku testing", Toast.LENGTH_SHORT).show();
+                addSKU(inputSkuCode.getText().toString(),inputProductName.getText().toString());
+            }
+        });
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TableLayout tableProducts =  (TableLayout) view.findViewById(R.id.tableProducts);
+        //tableProducts.setStretchAllColumns(true);
+        //tableProducts.bringToFront();
+
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("Products");
+        Query referenceQuery = reference.orderByKey();
+
+        ArrayList<ProductsHelperClass> productList = new ArrayList<>();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //productList.clear();
+                for(DataSnapshot data : snapshot.getChildren()){
+                    productList.add(data.getValue(ProductsHelperClass.class));
+                }
+
+                for(ProductsHelperClass product: productList){
+                    TableRow tr =  new TableRow(getActivity());
+
+                    TextView c1 = new TextView(getActivity());
+                    c1.setText(String.valueOf(product.getSku()));
+
+                    TextView c2 = new TextView(getActivity());
+                    c2.setText(String.valueOf(product.getName()));
+
+                    TextView c3 = new TextView(getActivity());
+                    c3.setText(String.valueOf(product.getQuantity()));
+
+                    tr.addView(c1);
+                    tr.addView(c2);
+                    tr.addView(c3);
+                    tableProducts.addView(tr);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sku_manage, container, false);
+        return view;
     }
+
+    private void addSKU(String sku, String name) {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("Products");
+
+        ProductsHelperClass addSKU = new ProductsHelperClass(sku,name,"Testing desc of "+name,0);
+        reference.child(sku).setValue(addSKU);
+    }
+
+
 }

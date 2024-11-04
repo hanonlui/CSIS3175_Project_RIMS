@@ -49,6 +49,16 @@ public class functionPanel extends AppCompatActivity {
         btnDashboard.setOnClickListener(v -> replaceFragment(new DashboardFragment()));
         btnSKUManage.setOnClickListener(v -> replaceFragment(new SkuManageFragment()));
         btnStocktaking.setOnClickListener(v -> replaceFragment(new StocktakingFragment()));
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     // Replace fragment in the container

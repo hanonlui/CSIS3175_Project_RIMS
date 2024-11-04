@@ -83,6 +83,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
         <ListView
@@ -90,9 +91,15 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:divider="@android:color/darker_gray"
             android:dividerHeight="1dp" />
+
+        <TableLayout
+            android:id="@+id/tableProducts1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
         <LinearLayout
             android:id="@+id/addSkuSection"

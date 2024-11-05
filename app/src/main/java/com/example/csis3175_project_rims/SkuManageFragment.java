@@ -15,6 +15,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.csis3175_project_rims.Helpers.ProductsDataAdapter;
 import com.example.csis3175_project_rims.Helpers.ProductsHelperClass;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import de.codecrafters.tableview.TableView;
+import de.codecrafters.tableview.listeners.TableDataClickListener;
+import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
+import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,17 +89,19 @@ public class SkuManageFragment extends Fragment {
         TextView inputSkuCode = (TextView)view.findViewById(R.id.inputSkuCode);
         TextView inputProductName = (TextView)view.findViewById(R.id.inputProductName);
 
+        addSKU("Z_DummySKU".toString(),"Z_DummyName");
+
+
         btnAddSku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"This is btnAddSku testing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"SKU "+inputSkuCode.getText().toString()+" is added!", Toast.LENGTH_SHORT).show();
                 addSKU(inputSkuCode.getText().toString(),inputProductName.getText().toString());
             }
         });
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TableLayout tableProducts =  (TableLayout) view.findViewById(R.id.tableProducts);
-        //tableProducts.setStretchAllColumns(true);
-        //tableProducts.bringToFront();
+        TableView tableProducts =  view.findViewById(R.id.table_data_view);
+        String[] headers={"SKU","Name","Quantity"};
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Products");
@@ -102,28 +111,17 @@ public class SkuManageFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //productList.clear();
+                productList.clear();
                 for(DataSnapshot data : snapshot.getChildren()){
                     productList.add(data.getValue(ProductsHelperClass.class));
                 }
+                //String[][] arrayTmp = productList.stream()
+                //        .map(p -> new String[] {p.getSku(), p.getName(), String.valueOf(p.getQuantity())})
+                //        .toArray(String[][]::new);
 
-                for(ProductsHelperClass product: productList){
-                    TableRow tr =  new TableRow(getActivity());
-
-                    TextView c1 = new TextView(getActivity());
-                    c1.setText(String.valueOf(product.getSku()));
-
-                    TextView c2 = new TextView(getActivity());
-                    c2.setText(String.valueOf(product.getName()));
-
-                    TextView c3 = new TextView(getActivity());
-                    c3.setText(String.valueOf(product.getQuantity()));
-
-                    tr.addView(c1);
-                    tr.addView(c2);
-                    tr.addView(c3);
-                    tableProducts.addView(tr);
-                }
+                tableProducts.setHeaderAdapter(new SimpleTableHeaderAdapter(getActivity(),headers));
+                //tableProducts.setDataAdapter(new SimpleTableDataAdapter(getActivity(), arrayTmp));
+                tableProducts.setDataAdapter(new ProductsDataAdapter(getActivity(),productList));
             }
 
             @Override
@@ -132,9 +130,20 @@ public class SkuManageFragment extends Fragment {
             }
         });
 
+        tableProducts.addDataClickListener(new ProductClickListener());
+
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private class ProductClickListener implements TableDataClickListener<ProductsHelperClass> {
+        @Override
+        public void onDataClicked(int rowIndex, ProductsHelperClass clickedProduct) {
+            //String clickedProductString = clickedProduct.getSku() + " " + clickedProduct.getName();
+            //Toast.makeText(getActivity(), "rowIndex = "+rowIndex, Toast.LENGTH_SHORT).show();
+            delete(clickedProduct.getSku());
+        }
     }
 
     private void addSKU(String sku, String name) {
@@ -143,6 +152,23 @@ public class SkuManageFragment extends Fragment {
 
         ProductsHelperClass addSKU = new ProductsHelperClass(sku,name,"Testing desc of "+name,0);
         reference.child(sku).setValue(addSKU);
+    }
+
+    private void delete(String sku){
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("Products");
+        Query referenceQuery = reference.child(sku);
+        referenceQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 

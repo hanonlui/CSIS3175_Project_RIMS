@@ -44,6 +44,7 @@ public class functionPanel extends AppCompatActivity {
         btnStocktaking = findViewById(R.id.btnStocktaking);
         btnSKUManage = findViewById(R.id.btnSKUManage);
         user = auth.getCurrentUser();
+        txtUserInfo.setText(user.getEmail());
 
         // Set button click listeners
         btnDashboard.setOnClickListener(v -> replaceFragment(new DashboardFragment()));

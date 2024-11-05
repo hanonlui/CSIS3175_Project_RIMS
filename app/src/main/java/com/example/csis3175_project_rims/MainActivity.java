@@ -107,10 +107,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 progressBar.setVisibility(view.GONE);
                             }
-
                         });
-
-
             }
         });
 

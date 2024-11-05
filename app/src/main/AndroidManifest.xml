@@ -15,15 +15,15 @@
         android:theme="@style/Theme.Material3.DayNight"
         tools:targetApi="31">
         <activity
-            android:name=".SKU_Manage"
+            android:name=".OLD.SKU_Manage"
             android:exported="false"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         <activity
-            android:name=".Stocktaking"
+            android:name=".OLD.Stocktaking"
             android:exported="false"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         <activity
-            android:name=".Dashboard"
+            android:name=".OLD.Dashboard"
             android:exported="false"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         <activity

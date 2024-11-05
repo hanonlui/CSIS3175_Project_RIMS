@@ -50,11 +50,19 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <TableLayout
-            android:id="@+id/tableProducts"
+<!--        <TableLayout-->
+<!--            android:id="@+id/tableProducts"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"/>-->
+
+        <de.codecrafters.tableview.TableView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/table_data_view"
+            app:tableView_columnCount="3"
             android:layout_weight="1"/>
+
 
         <LinearLayout
             android:id="@+id/addSkuSection"

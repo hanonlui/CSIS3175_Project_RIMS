@@ -31,6 +31,8 @@ public class ProductsDataAdapter extends TableDataAdapter<ProductsHelperClass> {
             case 2:
                 renderedView = renderedQuantity(productsHelperClass);
                 break;
+            case 3:
+                renderedView = renderedIsMatch(productsHelperClass);
         }
         return renderedView;
     }
@@ -47,6 +49,10 @@ public class ProductsDataAdapter extends TableDataAdapter<ProductsHelperClass> {
         return renderString(String.valueOf(productsHelperClass.getQuantity()));
     }
 
+
+    private View renderedIsMatch(final ProductsHelperClass productsHelperClass){
+        return productsHelperClass.getIsMatch()? renderString("Yes"):renderString("No");
+    }
     private View renderString(final String value) {
         final TextView textView = new TextView(getContext());
         textView.setText(value);

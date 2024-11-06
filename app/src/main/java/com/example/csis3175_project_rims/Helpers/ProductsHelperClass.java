@@ -3,6 +3,7 @@ package com.example.csis3175_project_rims.Helpers;
 public class ProductsHelperClass {
     private String sku, name, desc;
     private int quantity;
+    private Boolean isMatch=false;
 
     public ProductsHelperClass(){};
 
@@ -43,5 +44,13 @@ public class ProductsHelperClass {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean getIsMatch() {
+        return isMatch;
+    }
+
+    public void setIsMatch(boolean isMatch) {
+        this.isMatch = isMatch;
     }
 }

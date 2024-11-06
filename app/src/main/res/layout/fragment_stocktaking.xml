@@ -60,15 +60,12 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/productList"
-            android:layout_width="wrap_content"
-            android:layout_height="442dp"
-            android:layout_above="@+id/stockSummary"
-            android:layout_below="@id/searchBar"
-            android:layout_weight="1"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="1dp" />
+        <de.codecrafters.tableview.TableView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/table_data_view1"
+            app:tableView_columnCount="4"
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </FrameLayout>

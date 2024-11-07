@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:drawable/edit_text"
-                android:hint="Search SKU or Product Name"
+                android:hint="Search product by SKU"
                 android:padding="12dp" />
 
             <Button

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import java.util.Collections;
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.listeners.TableDataClickListener;
 import de.codecrafters.tableview.listeners.TableDataLongClickListener;
+import de.codecrafters.tableview.listeners.TableHeaderClickListener;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
@@ -96,8 +98,8 @@ public class SkuManageFragment extends Fragment {
         inputSkuCode = (TextView)view.findViewById(R.id.inputSkuCode);
         inputProductName = (TextView)view.findViewById(R.id.inputProductName);
         searchSku = (TextView)view.findViewById(R.id.searchSku);
-
         tableProducts =  view.findViewById(R.id.table_data_view);
+        tableProducts.setHeaderAdapter(new SimpleTableHeaderAdapter(getActivity(),headers));
 
         drawTable();
         //addSKU("Z_DummySKU","Z_DummyName");
@@ -140,6 +142,7 @@ public class SkuManageFragment extends Fragment {
 
         tableProducts.addDataClickListener(new ProductClickListener());
         tableProducts.addDataLongClickListener(new ProductLongClickListener());
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -150,10 +153,29 @@ public class SkuManageFragment extends Fragment {
             //Toast.makeText(getActivity(), "rowIndex = "+rowIndex, Toast.LENGTH_SHORT).show();
             FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
             DatabaseReference reference = rootNode.getReference("Products");
-            int tmpQty = clickedProduct.getQuantity()+1;
-            reference.child(clickedProduct.getSku()).child("quantity").setValue(tmpQty);
-            //Toast.makeText(getActivity(), "tmpQty = "+tmpQty, Toast.LENGTH_SHORT).show();
-            drawTable();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Manual Quantity Update");
+            builder.setMessage("Input the target quantity (Integer)");
+            final EditText input = new EditText(getActivity());
+            builder.setView(input);
+            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String value = String.valueOf(input.getText());
+                    int tmpQty1 = Integer.parseInt(value);
+                    reference.child(clickedProduct.getSku()).child("quantity").setValue(tmpQty1);
+                    drawTable();
+                }
+            });
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // nothing
+                }
+            });
+            builder.show();
         }
     }
 
@@ -167,7 +189,6 @@ public class SkuManageFragment extends Fragment {
                     switch (which){
                         case DialogInterface.BUTTON_POSITIVE:
                             deleteSKU(clickedProduct.getSku());
-                            drawTable();
                             break;
                         case DialogInterface.BUTTON_NEGATIVE:
                             break;
@@ -192,7 +213,6 @@ public class SkuManageFragment extends Fragment {
                 for(DataSnapshot data : snapshot.getChildren()){
                     productList.add(data.getValue(ProductsHelperClass.class));
                 }
-                tableProducts.setHeaderAdapter(new SimpleTableHeaderAdapter(getActivity(),headers));
                 tableProducts.setDataAdapter(new ProductsDataAdapter(getActivity(),productList));
             }
 
@@ -207,6 +227,7 @@ public class SkuManageFragment extends Fragment {
         DatabaseReference reference = rootNode.getReference("Products");
 
         ProductsHelperClass addSKU = new ProductsHelperClass(sku,name,"Testing desc of "+name,0);
+        //Toast.makeText(getActivity(),"Arrived "+reference, Toast.LENGTH_SHORT).show();
         reference.child(sku).setValue(addSKU);
     }
 
@@ -218,6 +239,7 @@ public class SkuManageFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 snapshot.getRef().removeValue();
+                drawTable();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

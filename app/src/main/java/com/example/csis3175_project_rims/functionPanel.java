@@ -46,6 +46,7 @@ public class functionPanel extends AppCompatActivity {
         user = auth.getCurrentUser();
         txtUserInfo.setText(user.getEmail());
 
+        replaceFragment(new DashboardFragment());
         // Set button click listeners
         btnDashboard.setOnClickListener(v -> replaceFragment(new DashboardFragment()));
         btnSKUManage.setOnClickListener(v -> replaceFragment(new SkuManageFragment()));

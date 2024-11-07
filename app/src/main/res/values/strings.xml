@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSIS3175_Project_RIMS</string>
+    <string name="app_name">RIMS</string>
     <string name="input_your_email">Input your Email</string>
     <string name="input_your_password">Input your Password</string>
     <string name="create">CREATE</string>

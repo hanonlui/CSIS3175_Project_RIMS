@@ -32,7 +32,7 @@
             <TextView
                 android:id="@+id/txtTotalStock"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Total Stock"
@@ -42,8 +42,8 @@
             <TextView
                 android:id="@+id/txtLowAlert"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Low Stock Alert"
                 android:textSize="24sp"
@@ -52,38 +52,29 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txtTotalView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="30dp"
+                android:text="0"
+                android:textColor="#1446C8"
+                android:textSize="50sp" />
 
-            <TextView
-                android:id="@+id/txtLowView"
+            <de.codecrafters.tableview.TableView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:id="@+id/table_data_view2"
+                app:tableView_columnCount="3"
+                android:layout_weight="0.5"/>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtUpdates"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:gravity="center"
-            android:text="Recent Updates :"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtUpdateView"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:gravity="center"
-            android:text="TextView" />
     </LinearLayout>
 
 

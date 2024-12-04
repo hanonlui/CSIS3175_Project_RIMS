@@ -128,7 +128,6 @@ public class StocktakingFragment extends Fragment {
 
                     }
                 });
-
             }
         });
 

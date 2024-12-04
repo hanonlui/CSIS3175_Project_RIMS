@@ -107,7 +107,8 @@ public class SkuManageFragment extends Fragment {
         btnAddSku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"SKU "+inputSkuCode.getText().toString()+" is added!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"SKU "+inputSkuCode.getText().toString()+" is added!",
+                        Toast.LENGTH_SHORT).show();
                 addSKU(inputSkuCode.getText().toString(),inputProductName.getText().toString());
                 drawTable();
             }
@@ -246,6 +247,4 @@ public class SkuManageFragment extends Fragment {
             }
         });
     }
-
-
 }
